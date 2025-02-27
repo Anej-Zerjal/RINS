@@ -1,0 +1,131 @@
+You should answer the questions by copying BOTH the command that you used to find the answer, and the output that contains the answer to the question. First, start the turtlesim_node from the turtlesim package. In another terminal start the py_draw_square.py node from the dis_tutorial1 package. Answer the following questions:
+
+1. Which nodes are currently active?
+
+rins@theoden:~$ ros2 node list
+/teleop_turtle
+/turtlesim
+
+2. What topics does the node "/turtlesim" publish to?
+
+rins@theoden:~$ ros2 node info /turtlesim
+/turtlesim
+  Subscribers:
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+
+3. Which topics are currenly active?
+
+rins@theoden:~$ ros2 topic list
+/parameter_events
+/rosout
+/turtle1/cmd_vel
+/turtle1/color_sensor
+/turtle1/pose
+
+4. What is the message type for the topic "/turtle1/cmd_vel"?
+
+rins@theoden:~$ ros2 topic info /turtle1/cmd_vel
+Type: geometry_msgs/msg/Twist
+
+5. What is the structure of the message type from the previous step?
+
+rins@theoden:~$ ros2 interface show geometry_msgs/msg/Twistst
+# This expresses velocity in free space broken into its linear and angular parts.
+
+Vector3  linear
+	float64 x
+	float64 y
+	float64 z
+Vector3  angular
+	float64 x
+	float64 y
+	float64 z
+
+6. Print out ONE message from the same topic.
+
+rins@theoden:~$ ros2 topic echo /turtle1/cmd_vel
+linear:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 2.0
+---
+
+7. What packages, beginning with "turt" are currently installed?
+
+rins@theoden:~$ ros2 pkg list | grep "turt*"
+turtle_tf2_py
+turtlebot4_description
+turtlebot4_ignition_bringup
+turtlebot4_ignition_gui_plugins
+turtlebot4_ignition_toolbox
+turtlebot4_msgs
+turtlebot4_navigation
+turtlebot4_node
+turtlebot4_simulator
+turtlebot4_viz
+turtlesim
+
+8. What services are currently available?
+
+rins@theoden:~$ ros2 service list
+/clear
+/kill
+/reset
+/spawn
+/teleop_turtle/describe_parameters
+/teleop_turtle/get_parameter_types
+/teleop_turtle/get_parameters
+/teleop_turtle/list_parameters
+/teleop_turtle/set_parameters
+/teleop_turtle/set_parameters_atomically
+/turtle1/set_pen
+/turtle1/teleport_absolute
+/turtle1/teleport_relative
+/turtlesim/describe_parameters
+/turtlesim/get_parameter_types
+/turtlesim/get_parameters
+/turtlesim/list_parameters
+/turtlesim/set_parameters
+/turtlesim/set_parameters_atomically
+
+9. How many messages per second are published on the "/turtle1/cmd_vel" topic?
+
+rins@theoden:~/bag_files$ ros2 topic hz /turtle1/cmd_vel
+average rate: 1.019
+	min: 0.768s max: 1.216s std dev: 0.18352s window: 3
+answer is 0
+
+10. Which parameters are currently active?
+
+rins@theoden:~$ ros2 param list
+/teleop_turtle:
+  qos_overrides./parameter_events.publisher.depth
+  qos_overrides./parameter_events.publisher.durability
+  qos_overrides./parameter_events.publisher.history
+  qos_overrides./parameter_events.publisher.reliability
+  scale_angular
+  scale_linear
+  use_sim_time
+/turtlesim:
+  background_b
+  background_g
+  background_r
+  qos_overrides./parameter_events.publisher.depth
+  qos_overrides./parameter_events.publisher.durability
+  qos_overrides./parameter_events.publisher.history
+  qos_overrides./parameter_events.publisher.reliability
+  use_sim_time
+
+11. What is the value of the parameter "/turtlesim background_r"?
+
+rins@theoden:~$ ros2 param get /turtlesim background_g
+Integer value is: 86
+
+12. Change the background color of the simulator window.
+
+rins@theoden:~$ ros2 param set /turtlesim background_r 42
+Set parameter successful
